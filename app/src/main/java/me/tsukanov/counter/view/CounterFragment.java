@@ -19,10 +19,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
 import java.util.Objects;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import me.tsukanov.counter.CounterApplication;
 import me.tsukanov.counter.R;
 import me.tsukanov.counter.SharedPrefKeys;
@@ -32,6 +37,7 @@ import me.tsukanov.counter.repository.CounterStorage;
 import me.tsukanov.counter.repository.exceptions.MissingCounterException;
 import me.tsukanov.counter.view.dialogs.DeleteDialog;
 import me.tsukanov.counter.view.dialogs.EditDialog;
+import me.tsukanov.counter.view.dialogs.AddDialog;
 
 public class CounterFragment extends Fragment {
 
@@ -52,6 +58,7 @@ public class CounterFragment extends Fragment {
   private TextView counterLabel;
   private Button incrementButton;
   private Button decrementButton;
+  private FloatingActionButton addButton;
 
   private IntegerCounter counter;
 
@@ -137,6 +144,9 @@ public class CounterFragment extends Fragment {
             increment();
           }
         });
+
+    addButton = view.findViewById(R.id.add_counter);
+    addButton.setOnClickListener(R -> showAddDialog());
 
     invalidateUI();
 
@@ -253,6 +263,12 @@ public class CounterFragment extends Fragment {
 
     invalidateUI();
     saveValue();
+  }
+
+  private void showAddDialog() {
+    final AddDialog dialog = new AddDialog();
+    assert getFragmentManager() != null;
+    dialog.show(getFragmentManager(), TAG);
   }
 
   /** Updates UI elements of the fragment based on current value of the counter. */

@@ -11,7 +11,6 @@ import androidx.fragment.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import java.util.List;
 import java.util.Objects;
@@ -20,7 +19,6 @@ import me.tsukanov.counter.R;
 import me.tsukanov.counter.domain.Counter;
 import me.tsukanov.counter.infrastructure.Actions;
 import me.tsukanov.counter.infrastructure.BroadcastHelper;
-import me.tsukanov.counter.view.dialogs.AddDialog;
 
 public class CountersListFragment extends ListFragment {
 
@@ -37,9 +35,6 @@ public class CountersListFragment extends ListFragment {
 
     @SuppressLint("InflateParams")
     final View view = inflater.inflate(R.layout.menu, null);
-
-    final LinearLayout addButton = view.findViewById(R.id.add_counter);
-    addButton.setOnClickListener(v -> showAddDialog());
 
     return view;
   }
@@ -59,20 +54,9 @@ public class CountersListFragment extends ListFragment {
 
   @Override
   public void onListItemClick(@NonNull final ListView lv, @NonNull final View v, final int position, final long id) {
-    //    CounterFragment newContent = new CounterFragment(adapter.getItem(position).getName());
-    //    if (newContent != null) switchCounterFragment(newContent);
-
     new BroadcastHelper(this.getContext())
         .sendSelectCounterBroadcast(listAdapter.getItem(position).getName());
   }
-
-  //  private void switchCounterFragment(CounterFragment fragment) {
-  //    if (getActivity() == null) return;
-  //    if (getActivity() instanceof MainActivity) {
-  //      MainActivity ra = (MainActivity) getActivity();
-  //      ra.switchCounterFragment(fragment);
-  //    }
-  //  }
 
   private void updateList() {
     if (!isFragmentActive()) return;
@@ -84,12 +68,6 @@ public class CountersListFragment extends ListFragment {
       listAdapter.add(c);
     }
     setListAdapter(listAdapter);
-  }
-
-  private void showAddDialog() {
-    final AddDialog dialog = new AddDialog();
-    assert getFragmentManager() != null;
-    dialog.show(getFragmentManager(), TAG);
   }
 
   private class UpdateReceiver extends BroadcastReceiver {

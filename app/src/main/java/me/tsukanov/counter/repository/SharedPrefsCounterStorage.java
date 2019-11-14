@@ -66,6 +66,13 @@ public class SharedPrefsCounterStorage implements CounterStorage<IntegerCounter>
   @NonNull
   @Override
   public IntegerCounter read(@NonNull final Object identifierObj) throws MissingCounterException {
+    if (identifierObj == null) {
+      try {
+        return new IntegerCounter("Counter1");
+      } catch (CounterException e) {
+        throw new RuntimeException(e);
+      }
+    }
     final String name = identifierObj.toString();
     final List<IntegerCounter> counters = readAll(false);
 

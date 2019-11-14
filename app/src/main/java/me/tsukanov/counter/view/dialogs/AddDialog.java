@@ -3,21 +3,21 @@ package me.tsukanov.counter.view.dialogs;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
 import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.EditText;
 import android.widget.Toast;
-import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
+
 import me.tsukanov.counter.CounterApplication;
 import me.tsukanov.counter.R;
 import me.tsukanov.counter.domain.IntegerCounter;
 import me.tsukanov.counter.domain.exception.CounterException;
 import me.tsukanov.counter.infrastructure.BroadcastHelper;
-import me.tsukanov.counter.repository.CounterStorage;
 import me.tsukanov.counter.view.CounterFragment;
 
 public class AddDialog extends DialogFragment {
